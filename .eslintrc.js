@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   extends: '@react-native-community',
   rules: {
-    indent: ['error', 2, { VariableDeclarator: 2 }],
+    indent: ['error', 2, { VariableDeclarator: 1 }],
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
