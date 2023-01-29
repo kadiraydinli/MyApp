@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { GeolocationSlice } from './features/GeolocationSlice';
 import { SearchSlice } from './features/SearchSlice';
 
 export const store = configureStore({
   reducer: {
     searchText: SearchSlice.reducer,
+    myLocation: GeolocationSlice.reducer,
   },
 });
 

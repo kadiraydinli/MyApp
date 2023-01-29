@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { MapStyleElement, PROVIDER_GOOGLE } from 'react-native-maps';
-import mapTheme from '../config/mapTheme.json';
+import mapTheme from 'config/mapTheme.json';
+import { InitialRegion } from 'utils/constant';
+import useGeolocation from 'hooks/useGeolocation';
+
+const CustomMapStyle: MapStyleElement[] = mapTheme;
 
 type MapProps = {};
 
 const Map: React.FC<MapProps> = () => {
-  const customMapStyle: MapStyleElement[] = mapTheme;
+  const mapRef = useRef<MapView>(null);
+  const { location, fetchCurrentPosition } = useGeolocation();
+
+  useEffect(() => {
+    fetchCurrentPosition();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (mapRef.current && location.currentLocation) {
+      mapRef.current.animateToRegion(location.currentLocation);
+    }
+  }, [location]);
+
   return (
     <MapView
-      initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
+      ref={mapRef}
+      showsUserLocation
+      initialRegion={InitialRegion}
       provider={PROVIDER_GOOGLE}
       style={styles.container}
-      customMapStyle={customMapStyle}
+      customMapStyle={CustomMapStyle}
     />
   );
 };

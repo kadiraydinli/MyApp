@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import { setText } from '../store/features/SearchSlice';
+import { setText } from 'store/features/SearchSlice';
 
 const Input: React.FC = () => {
   const text = useAppSelector(state => state.searchText);
