@@ -17,8 +17,8 @@ export const GeolocationSlice = createSlice({
       state.currentLocation = {
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
       };
     },
   },

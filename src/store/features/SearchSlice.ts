@@ -1,24 +1,35 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+export interface Geometry {
+  latitude: number;
+  longitude: number;
+}
+
+export interface Search {
+  placeID: string;
+  address: string;
+  geometry: Geometry | null;
+}
+
 export interface SearchState {
-  value: string;
+  searches: Search[];
 }
 
 const initialState: SearchState = {
-  value: '',
+  searches: [],
 };
 
 export const SearchSlice = createSlice({
-  name: 'searchText',
+  name: 'searchLocation',
   initialState,
   reducers: {
-    setText: (state, action: PayloadAction<string>) => {
-      state.value = action.payload;
+    setSearchLoc: (state, action: PayloadAction<Search>) => {
+      state.searches.push(action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setText } = SearchSlice.actions;
+export const { setSearchLoc } = SearchSlice.actions;
 
-// export default SearchSlice.reducer;
+export const searchCount = (state: SearchState) => state.searches.length;

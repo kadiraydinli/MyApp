@@ -4,6 +4,7 @@ import Geolocation, { PositionError } from 'react-native-geolocation-service';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import hasPermission from 'utils/permission';
 import { setLocation } from 'store/features/GeolocationSlice';
+import { setMapLocation } from 'store/features/MapSlice';
 
 const useGeolocation = () => {
   const location = useAppSelector(state => state.myLocation);
@@ -14,6 +15,14 @@ const useGeolocation = () => {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
     };
+
+    dispatch(
+      setMapLocation({
+        ...region,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }),
+    );
 
     dispatch(setLocation(region));
   };
